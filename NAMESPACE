@@ -1,0 +1,9 @@
+useDynLib(SubTS)
+export("dF1", "dF2", "dGGa", "dSubCTS", "getk1", "getk2",
+       "rDickman", "rF1", "rF2", "rGGa", "rPGamma", "rPRDTS", "rSubCTS", "rTrunGamma",
+       "rTrunS", "rTrunTS", "simCondS", "simTandW")
+
+importFrom("copula", "retstable")
+importFrom("gsl", "gamma_inc")
+importFrom("stats", "dgamma", "integrate", "optimize", "rgamma")
+importFrom("tweedie", "dtweedie")
