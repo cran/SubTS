@@ -15,7 +15,7 @@ dGGa<- function(x, a, p, b) {
 }
 
 rGGa <- function(n, a, p, b) {
-  if(n < 1 || is.integer(n))
+  if(n < 1)
     stop("n must be an integer greater than or equal to 1")
   if(a <= 0)
     stop("a must be positive")
@@ -62,7 +62,7 @@ dF1 <- function(x, a, p) {
 }
 
 rF1 <- function(n, a, p) {
-  if(n < 1 || is.integer(n))
+  if(n < 1)
     stop("n must be an integer greater than or equal to 1")
   if(a < 0)
     stop("a must be >= 0")
@@ -85,7 +85,7 @@ dF2 <- function(x,a, p) {
 }
 
 rF2 <- function(n, a, p) {
-  if(n < 1 || is.integer(n))
+  if(n < 1)
     stop("n must be an integer greater than or equal to 1")
   if(a < 0 | a>=1)
     stop("a must be in the interval [0,1)")
@@ -96,7 +96,7 @@ rF2 <- function(n, a, p) {
 }
 
 rSubCTS <- function(n, alpha, c, ell, method=NULL) {
-  if(n < 1 || is.integer(n))
+  if(n < 1)
     stop("n must be an integer greater than or equal to 1")
   if(alpha < 0 | alpha >= 1)
     stop("alpha must be in the interval [0,1)")
@@ -299,3 +299,29 @@ rPGamma <- function(n, t, mu, p, step=1) {
     return(.C("rPGamma", as.integer(n), as.double(t), as.double(p), as.double(k1), as.double(k2), as.double(step), as.double(vector("double", n)))[[7]]/mu)
   }
 }
+
+rCTSM <- function(n, alpha, c, ell, epsilon=0.5, p=0.5){
+    if(n < 1)
+      stop("n must be an integer greater than or equal to 1")
+    if(alpha < 0 || alpha >= 2)
+      stop("alpha must be in the interval [0, 2)")
+    if(c <= 0)
+      stop("c must be positive")
+    if(ell <= 0)
+      stop("ell must be positive")
+    if(epsilon <= 0 || epsilon >= 1)
+      stop("epsilon must be in the interval (0, 1)")
+    if(p <= 0 || p >= 1)
+      stop("p must be in the interval (0, 1)")
+
+    if(alpha < 1){
+      return(-rSubCTS(n, alpha, c, ell))
+      } else {
+          return(.C("rCTSM", as.integer(n), as.double(alpha), as.double(c), as.double(ell), as.double(epsilon), as.double(p), as.double(vector("double", n)))[[7]]);
+      }
+}
+
+rCTSP <- function(n, alpha, c, ell, epsilon=0.5, p=0.5){
+  return(-rCTSM(n, alpha, c, ell, epsilon, p));
+}
+   

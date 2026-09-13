@@ -1,8 +1,8 @@
 \name{rSubCTS}
 \alias{rSubCTS}
-\title{Simulates of CTS subordinators}
+\title{Simulation of CTS Subordinators}
 \description{
-Simulates from classical tempered stable (CTS) distributions. When alpha=0 this is the gamma distribution.
+Simulates from fully right skewed classical tempered stable (CTS) distributions with alpha<1. When alpha=0 this is the gamma distribution.
 }
 \usage{
 rSubCTS(n, alpha, c, ell, method = NULL)
